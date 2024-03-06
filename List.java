@@ -17,6 +17,10 @@ public class List {
         size = 0;
     }
 
+    public Node getFirstNode() {
+        return first;
+    }
+
     /** Returns the number of elements in this list. */
     public int getSize() {
  	      return size;
@@ -50,7 +54,7 @@ public class List {
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
-     public int indexOf(char chr) {
+    public int indexOf(char chr) {
         int counter = 0;
         Node current = first;
 
@@ -65,7 +69,6 @@ public class List {
         }
         return -1;
     }
-
 
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
