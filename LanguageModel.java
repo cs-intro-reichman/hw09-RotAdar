@@ -34,32 +34,28 @@ public class LanguageModel {
     /** Builds a language model from the text in the given file (the corpus). */
 	public void train(String fileName) {
 		String window = "";
-        char c;
-
+        char ch;
         In in = new In(fileName);
-
         for (int i = 0; i < windowLength; i++)
         {
-            c = in.readChar();
-            window += c;
+            ch = in.readChar();
+            window += ch;
         }
-
         while (!in.isEmpty())
         {
-            c = in.readChar();
+            ch = in.readChar();
             if (CharDataMap.containsKey(window))
             {
-                CharDataMap.get(window).update(c);
+                CharDataMap.get(window).update(ch);
             }
             else
             {
                 List probs = new List();
-                probs.addFirst(c);
+                probs.addFirst(ch);
                 CharDataMap.put(window, probs);
             }
-            window = window.substring(1) + c;
+            window = window.substring(1) + ch;
         }
-
         for (List probs : CharDataMap.values())
         calculateProbabilities(probs);
 	}
@@ -108,8 +104,7 @@ public class LanguageModel {
 	public String generate(String initialText, int textLength) {
 		String window = "";
         String text = initialText;
-        char c;
-
+        char ch;
         if (windowLength > initialText.length() || initialText.length() >= textLength)
         {
             return initialText;
@@ -121,9 +116,9 @@ public class LanguageModel {
             {
                 if (CharDataMap.containsKey(window))
                 {
-                    c = getRandomChar(CharDataMap.get(window));
-                    text += c;
-                    window = window.substring(1) + c;
+                    ch = getRandomChar(CharDataMap.get(window));
+                    text += ch;
+                    window = window.substring(1) + ch;
                 }
                 else
                 {
@@ -145,6 +140,6 @@ public class LanguageModel {
 	}
 
     public static void main(String[] args) {
-		// Your code goes here
+		
     }
 }
