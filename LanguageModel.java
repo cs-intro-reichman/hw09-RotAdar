@@ -33,37 +33,36 @@ public class LanguageModel {
 
     /** Builds a language model from the text in the given file (the corpus). */
 	public void train(String fileName) {
-	String window = "";
-        char ch;
+		String window = "";
+        char c;
 
         In in = new In(fileName);
 
         for (int i = 0; i < windowLength; i++)
         {
-            ch = in.readChar();
-            window += ch;
+            c = in.readChar();
+            window += c;
         }
 
         while (!in.isEmpty())
         {
-            ch = in.readChar();
+            c = in.readChar();
             if (CharDataMap.containsKey(window))
             {
-                CharDataMap.get(window).update(ch);
+                CharDataMap.get(window).update(c);
             }
             else
             {
                 List probs = new List();
-                probs.addFirst(ch);
+                probs.addFirst(c);
                 CharDataMap.put(window, probs);
             }
-            window = window.substring(1) + ch;
+            window = window.substring(1) + c;
         }
 
         for (List probs : CharDataMap.values())
         calculateProbabilities(probs);
 	}
-
 
     // Computes and sets the probabilities (p and cp fields) of all the
 	// characters in the given list. */
